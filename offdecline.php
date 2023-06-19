@@ -45,7 +45,7 @@
                       $currentuserid = $_SESSION['offid'];
                     }
                     
-                    include 'connection.php';
+                    include '../connection.php';
                     $sql = mysqli_query($con, 
                     "select * from tblevents where status = 4 and userid='$currentuserid' order by id desc"); 
                     $i = 1;

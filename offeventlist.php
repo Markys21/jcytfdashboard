@@ -49,7 +49,7 @@
                            if(isset($_SESSION['offid'])){
                             $currentuserid = $_SESSION['offid'];
                           }
-                          include 'connection.php';
+                          include '../connection.php';
                           $sql1 = mysqli_query($con, "select * from tblevents where status = 1 and userid='$currentuserid' order by id desc");
                           $i = 1;
                           while($result = mysqli_fetch_array($sql1)){

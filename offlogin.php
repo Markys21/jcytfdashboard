@@ -25,7 +25,7 @@ if (isset($_POST['uname']) && isset($_POST['pass'])) {
 		header("Location: index.php?error=Password is required");
 		exit();
 	} else {
-		$sql = "SELECT * FROM users WHERE user_name='$uname' AND password='$pass' AND status = '1' AND roleid = 'user'";
+		$sql = "SELECT * FROM users WHERE user_name='$uname' AND password='$pass' AND status = '1' AND roleid = 'officer'";
 
 		$result = mysqli_query($conn, $sql);
 
@@ -76,6 +76,7 @@ if (isset($_POST['uname']) && isset($_POST['pass'])) {
 					$table .= '</tr>';
 					$table .= '<td style="font-size:12px; font-weight:600; color:#626262; line-height: 17px; margin-top: 20px; margin:0;">The code can be used only once and will expire in 2 minutes. If you didn\'t request the code, please disregard this email. This is an automatically generated email, please do not reply to it.</td>';
 					$table .= '<tr style="border-bottom: 5px solid #ccc;">';
+					
 					$table .= '<td style="margin: 0; text-align: left; font-size:12px; font-weight:400; color: #858585; line-height:17px;">© Jesus Christ Yesterday, Today and Forever All Right Reserved.</td>';
 					$table .= '</tr>';
 					$table .= '</center>';
@@ -83,7 +84,7 @@ if (isset($_POST['uname']) && isset($_POST['pass'])) {
 
 					$mail->isHTML(true);
 					$mail->Body = $table;
-
+                    $mail->Subject = 'Jesus Christ Yesterday, Today, and Forever OTP Verification Code for login';
 					$mail->ContentType = 'text/html';
 					$mail->CharSet = 'UTF-8';
 					$mail->send();
@@ -107,7 +108,7 @@ if (isset($_POST['uname']) && isset($_POST['pass'])) {
 	}
 
 } else {
-	header("Location: offindex.php");
+	header("Location: index.php");
 	exit();
 }
 

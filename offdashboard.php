@@ -1,22 +1,18 @@
 <?php
-include 'db_conn.php';
+include '../db_conn.php';
 session_start();
 if (empty($_SESSION['gate1'])) {
-  header("location: offlogin.php");
+  header("location: index.php");
   exit;
 }
 $offid = $_SESSION['offid'];
 
 if (!isset($_SESSION['offid'])) {
-  header("location: offlogin.php");
+  header("location: index.php");
   exit;
 }
 ?>
-<!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
+
 <html lang="en">
 
 <head>
@@ -34,12 +30,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
+  <link rel="icon" href="./logojcytf.png">
   <link rel="stylesheet" href="./dist/css/adminlte.min.css">
 
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-
+<div class="preloader flex-column justify-content-center align-items-center">
+        <!--<img class = "animation_shake" scr="./logojcytf.png" alt = "JCYTF" height ="60" width ="60">-->
+        <img class="img-circle" src="./logojcytf.png" alt="JCYTF" height ="100" width ="100">
+    </div>
   <div class="wrapper">
 
     <!-- Navbar -->
@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main Sidebar Container -->
     <aside style="background-color: #242B3A;" class="main-sidebar elevation-4">
       <!-- Brand Logo -->
-      <a href="?page=offdashboard" class="brand-link text-light mt-2">
+      <a href="./offdashboard.php" class="brand-link text-light mt-2">
         <img src="./logojcytf.png" alt="JCYTF" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light"><span class="text-warning">JCYTF</span> Dashboard</span>
       </a>
@@ -100,11 +100,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
 
             <li class="nav-item">
-              <a href="?page=offdashboard" class="mnu nav-link
+              <a href="?page=offdashboardstart" class="mnu nav-link
             <?php
             if (isset($_GET['page'])) {
               $p = $_GET['page'];
-              if ($p == 'offdashboard') {
+              if ($p == 'offdashboardstart') {
                 echo 'active';
               }
             }
@@ -206,7 +206,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <li style="margin-top: 410px;" class="nav-item">
             <hr style="background-color: orange;">
-              <a href="./offindex.php" class="nav-link" id="btnLogout">
+              <a href="./index.php" class="nav-link" id="btnLogout">
                 <lord-icon src="https://cdn.lordicon.com/hcuxerst.json" trigger="hover"
                   colors="primary:#4be1ec,secondary:#cb5eee" style="width:40px;height:40px; margin-bottom: -15px;">
                 </lord-icon>
@@ -229,7 +229,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       if (isset($_GET['page'])) {
         $page = $_GET['page'];
         switch ($page) {
-          case 'offdashboard':
+          case 'offdashboardstart':
             include 'offdashstarter.php';
             break;
           case 'off-add-event':
@@ -355,7 +355,7 @@ xhr1.onload = function () {
           icon: 'success',
           confirmButtonText: 'OK',
         }).then(() => {
-          window.location.href = "?page=officer-request";
+          location.reload();
         });
       } else if (result.isDenied) {
         Swal.fire('Changes are not updated', '', 'info');
@@ -410,49 +410,54 @@ xhr1.send(formData);
     });
     // Function to handle form submission
     //save event
+document.addEventListener('DOMContentLoaded', function() {
+  // Attach event listener to the form submit event
+  document.getElementById('imageUploadForm1').addEventListener('submit', uploadImages);
+
+  // Define the uploadImages function
   function uploadImages(event) {
-  event.preventDefault();
-  var form = document.getElementById('imageUploadForm1');
-  var formData = new FormData(form);
+    event.preventDefault();
+    var form = document.getElementById('imageUploadForm1');
+    var formData = new FormData(form);
 
-  // Get feature image file and append it to the form data
-  var featureImage = document.getElementById('feature_image').files[0];
-  formData.append('feature_image', featureImage);
+    // Get feature image file and append it to the form data
+    var featureImage = document.getElementById('feature_image').files[0];
+    formData.append('feature_image', featureImage);
 
-  // Get supporting images files and append them to the form data
-  var supportingImages = document.getElementById('supporting_images').files;
-  for (var i = 0; i < supportingImages.length; i++) {
-    formData.append('supporting_images[]', supportingImages[i]);
-  }
-
-  // Send Ajax request to the server
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'upload.php', true);
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      // Request successful, do something with the response
-      Swal.fire({
-        icon: 'success',
-        title: 'Saved!',
-        confirmButtonText: 'OK',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const formInputs = document.getElementById('imageUploadForm1').querySelectorAll('input');
-          formInputs.forEach(input => input.value = "");
-
-          window.location.href = "?page=officer-request";
-        }
-      });
-    } else {
-      // Error occurred during the request
-      console.error(xhr.statusText);
+    // Get supporting images files and append them to the form data
+    var supportingImages = document.getElementById('supporting_images').files;
+    for (var i = 0; i < supportingImages.length; i++) {
+      formData.append('supporting_images[]', supportingImages[i]);
     }
-  };
-  xhr.send(formData);
-}
 
-// Attach event listener to the form submit event
-document.getElementById('imageUploadForm1').addEventListener('submit', uploadImages);
+    // Send Ajax request to the server
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'offupload.php', true);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        // Request successful, do something with the response
+        Swal.fire({
+          icon: 'success',
+          title: 'Saved!',
+          confirmButtonText: 'OK',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const formInputs = document.getElementById('imageUploadForm1').querySelectorAll('input');
+            formInputs.forEach(input => input.value = "");
+
+            window.location.href = "?page=officer-request";
+          }
+        });
+      } else {
+        // Error occurred during the request
+        console.error(xhr.statusText);
+      }
+    };
+    xhr.send(formData);
+  }
+});
+
+
 
 
 // Attach event listener to the form submit event
@@ -474,7 +479,7 @@ document.getElementById('imageUploadForm1').addEventListener('submit', uploadIma
   }).then((result) => {
     if (result.isConfirmed) {
       // Perform logout actions here
-      window.location.href = "./offindex.php"; // Redirect to the logout page
+      window.location.href = "./index.php"; // Redirect to the logout page
     }
   });
 });
@@ -501,7 +506,7 @@ function resetTimer() {
 // Perform the logout action
 function logout() {
     // Redirect the user to the logout page or perform any other necessary actions
-    window.location.href = 'offindex.php';
+    window.location.href = 'index.php';
 }
 
 // Attach event listeners to detect user activity

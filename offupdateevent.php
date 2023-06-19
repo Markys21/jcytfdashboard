@@ -14,7 +14,7 @@
 
     $featureImage = $_FILES['feature_image_edit'];
     $featureImageName = generateUniqueFilename($featureImage['name']);
-    move_uploaded_file($featureImage['tmp_name'], './images/' . $featureImageName);
+    move_uploaded_file($featureImage['tmp_name'], '../images/' . $featureImageName);
 
     // Handle supporting images upload
     
@@ -36,7 +36,7 @@
         }
         if($bsame == false) {
             $supportingImageName = generateUniqueFilename($supportingImages['name'][$key]);
-            move_uploaded_file($tmpName, './images/' . $supportingImageName);
+            move_uploaded_file($tmpName, '../images/' . $supportingImageName);
             $OriginalNames[] = $originalname;
             $supportingImageNames[] = $supportingImageName;
         }

@@ -1,5 +1,5 @@
 <?php 
-include('connection.php');
+include('../connection.php');
 if(!isset($_SESSION['offid'])){
     header("location: offeditevent.php");
     exit;
@@ -101,19 +101,19 @@ $row=mysqli_fetch_assoc($getData);
                     <label for="exampleInputFile">To Change Images and Upload</label>
                     <div class="row">
                     <div class="col-4 form-group">
-                    <label for="exampleInputEmail1">Your Featured Image File</label>
+                    <label for="exampleInputEmail1">Featured Image</label>
                     
                     <p>
                       <a href="../images/<?php echo $row['featuredimage']?>" target="_blank">
 
-            <img src="../images/<?php echo $row['featuredimage']?>" width="100px" alt="" srcset="">
+            <img src="https://jcytfchurch.online/images/<?php echo $row['featuredimage']?>" width="100px" alt="" srcset="">
 
                         
                       </a>
                     </p>
                   </div>
                   <div class="col-8 form-group">
-                  <label for="exampleInputEmail1">Your Pictures File</label>
+                  <label for="exampleInputEmail1">Gallery</label>
                     <?php 
                     
                     $arrimgs = array();
@@ -129,7 +129,7 @@ $row=mysqli_fetch_assoc($getData);
                         <a href="../images/<?php echo $arrimgs[$i]; ?>" target="_blank">
 
                           <!-- imag -->
-                      <img src="../images/<?php echo $arrimgs[$i]; ?>" width="100px" alt="" srcset="">
+                      <img src="https://jcytfchurch.online/images/<?php echo $arrimgs[$i]; ?>" width="100px" alt="" srcset="">
                           
                         </a>
                       

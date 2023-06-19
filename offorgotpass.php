@@ -19,6 +19,7 @@ $_SESSION['gate'] = '';
   <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <!-- Theme style -->
+  <link rel = "icon" href = "./logojcytf.png">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="./dist/css/adminlte.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
@@ -38,8 +39,8 @@ $_SESSION['gate'] = '';
     <!-- /.login-logo -->
     <div class="card col-12 bg-gray-dark ">
       <div class="card-body login-card-body bg-gray-dark m-3">
-        <p class="login-box-msg">Forgot Password</p>
-        <p class="text-center">Enter your email address to reset your password.</p>
+        <h3 class="login-box-msg">Forgot Password</h3>
+        <p class="text-center">Enter your email address.</p>
         <div class="input-group mb-3">
           <input id="email" type="email" name="email" class="form-control" placeholder="Email Address" required>
           <div class="input-group-append">
@@ -50,7 +51,7 @@ $_SESSION['gate'] = '';
         </div>
         <button type="submit" id="btnForgot" class="btn btn-warning btn-block">Recover Account</button>
         <p class="mt-3 text-center">
-          <a href="offindex.php" id="backToLoginLink">Back to Login</a>
+          <a href="index.php" id="backToLoginLink">Back to Login</a>
         </p>
       </div>
     </div>
@@ -79,6 +80,7 @@ $_SESSION['gate'] = '';
           success: function(response) {
             // Display success message
             Swal.fire({
+                backdrop: false,
               icon: 'success',
               title: 'Your forgotten Account sent to email',
               text: 'Your email address has received a forgotten account.',
@@ -92,6 +94,7 @@ $_SESSION['gate'] = '';
           error: function(xhr, status, error) {
             // Display error message
             Swal.fire({
+                backdrop: false,
               icon: 'error',
               title: 'Forgot Password',
               text: 'send to your email was unsuccessful.',

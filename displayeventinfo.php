@@ -12,7 +12,7 @@ if (isset($_POST['vieweventid'])) {
     <!-- featured image -->
     <div style="font-family: 'Times New Roman', Times, serif;" class="row">
       <div class="col-6">
-        <img src="./images/<?php
+        <img src="https://jcytfchurch.online/images/<?php
         echo $result['featuredimage'];
         ?>" class="product-image" alt="Product Image">
       </div>
@@ -145,10 +145,10 @@ if (isset($_POST['vieweventid'])) {
           ?>
 
 
-          <a href="./images/<?php echo $arrimgs[$i]; ?>" target="_blank">
+          <a href="https://jcytfchurch.online/images/<?php echo $arrimgs[$i]; ?>" target="_blank">
 
             <!-- imag -->
-            <img src="./images/<?php echo $arrimgs[$i]; ?>" width="100px" alt="" srcset="">
+            <img src="https://jcytfchurch.online/images//<?php echo $arrimgs[$i]; ?>" width="100px" alt="" srcset="">
 
           </a>
 

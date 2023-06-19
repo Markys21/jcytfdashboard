@@ -1,19 +1,14 @@
 <?php
-header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-header("Pragma: no-cache"); // HTTP 1.0.
-header("Expires: 0");
-
 session_start();
-$_SESSION['gate'] = '';
+$_SESSION['gate1'] = '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
-    <meta http-equiv="Cache-control" content="no-cache">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LOGIN | ADMIN</title>
+  <title>LOGIN | OFFICER</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -32,9 +27,10 @@ $_SESSION['gate'] = '';
 
 <body class="container hold-transition login-page bg-navy">
 <div class="row">
-  <div class="login-box">
-    <div class="col-12 contaner-fluid mb-3 text-center">
-      <a class="text-decoration-none display-4 " href="#"><span class="text-warning fw-bolder">JCYTF</span>ADMIN</a>
+  <div class="login-box text-light">
+   
+    <div class="col-12 contaner-fluid mb-3 text-center text-light">
+      <a class="text-decoration-none display-4 text-start" href="#"><span class="text-warning fw-bolder">    JCYTF</span>OFFICER</a>
       <?php if (isset($_GET['error'])) { ?>
         <p class="error text-danger fs-6">
           <?php echo $_GET['error']; ?>
@@ -69,21 +65,22 @@ $_SESSION['gate'] = '';
             <div class="input-group-text">
               <span class="fas fa-key"></span>
             </div>
-          </div>
+              
             </div>
-           
+            
+            
             <div class="col-12">
                 <div><p id="timer" class="text-center mt-4"></p></div>
-              <button type="submit" id="btnotp" class="btn btn-warning btn-block mt-3">Confirm OTP</button>
+              <button type="submit" id="btnotpoff" class="btn btn-warning btn-block mt-3">Confirm OTP</button>
             </div>
           </div>
         </div>
-        <button type="submit" id="btnlogin" class="btn btn-warning btn-block">Confirm</button>
-        <p class="mb-1 mt-3">
-          <a href="forgotpass.php" id="forgotPasswordLink">Forgot Password?</a>
-        </p>
+       
       </div>
-      
+       <button type="submit" id="btnloginoff" class="btn btn-warning btn-block">Confirm</button>
+        <p class="mb-1 mt-3">
+          <a href="./offorgotpass.php" id="forgotPasswordLink">Forgot Password?</a>
+        </p>
     </div>
   </div>
 </div>
@@ -96,48 +93,43 @@ $_SESSION['gate'] = '';
   <!-- AdminLTE App -->
   <script src="./dist/js/adminlte.min.js"></script>
   <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-   <!-- sweetalert -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- sweetalert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
 
 //login
-$("#btnotp").click(function() {
+$("#btnotpoff").click(function () {
   var uname = $("#uname").val();
   var pass = $("#pass").val();
-  var txtotp = $('#txtotp').val();
+  var txtotp = $("#txtotp").val();
   var specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
   if (uname === '') {
-    Swal.fire({backdrop: false, text: 'Username Incorrect' });
+    Swal.fire({ backdrop: false, text: 'Username Required' });
   } else if (pass === '') {
-    Swal.fire({backdrop: false, text: 'Password Incorrect' });
-    }else if (specialChars.test(uname) || specialChars.test(pass)) {
+    Swal.fire({ backdrop: false, text: 'Password Required' });
+  } else if (specialChars.test(uname) || specialChars.test(pass)) {
     Swal.fire({ backdrop: false, text: 'Special characters are not allowed' });
   } else if (txtotp === '') {
-    Swal.fire({backdrop: false, text: 'OTP Incorrect' });
+    Swal.fire({ backdrop: false, text: 'OTP Incorrect' });
   } else {
     $.ajax({
-      url: "otplogin.php",
-      method: "POST",
+      url: 'offotp.php',
+      method: 'POST',
       data: {
         uname: uname,
         pass: pass,
         txtotp: txtotp
       },
-      success: function(response) {
-        if (response === "Welcome") {
-          Swal.fire({
-            backdrop: false,
-            title: "Success",
-            text: "Entering Dashboard",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500
-          }).then(function() {
-            $("#btnotp").prop("disabled", true);
-            window.location.href = "sadashboard.php";
-          });
+      success: function (response) {
+        if (response === 'Welcome') {
+          Swal.fire({ backdrop: false, title: 'Success', text: 'Entering Dashboard', icon: 'success' })
+            .then(() => {
+              $("#btnotpoff").prop('disabled', 'disabled');
+              window.location.href = "offdashboard.php";
+            });
         } else {
-          Swal.fire({backdrop: false, text: "Invalid" });
+          Swal.fire({ backdrop: false, title: 'Error', text: 'Invalid', icon: 'error' });
         }
       }
     });
@@ -145,10 +137,9 @@ $("#btnotp").click(function() {
 });
 
 
-
-$("#btnlogin").click(function () {
-  $("#btnlogin").prop("disabled", true); // Disable the login button to prevent spamming
-  var uname = $("#uname").val();
+$("#btnloginoff").click(function () {
+  $("#btnloginoff").prop("disabled", true);
+ var uname = $("#uname").val();
   var pass = $("#pass").val();
   var specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 
@@ -162,7 +153,7 @@ $("#btnlogin").click(function () {
     Swal.fire({ backdrop: false, text: 'OTP Incorrect' });
   } else {
     $.ajax({
-      url: 'login.php',
+      url: 'offlogin.php',
       method: 'POST',
       data: {
         uname: uname,
@@ -171,15 +162,15 @@ $("#btnlogin").click(function () {
       success: function (response) {
         if (response === 'Correct') {
           Swal.fire({ backdrop: false, title: 'Success', text: 'Login with OTP!', icon: 'success', showConfirmButton: false,
-            timer: 1500 })
+              timer: 1500 })
             .then(() => {
               $("#otp").show();
-              $("#btnlogin").hide();
+              $("#btnloginoff").hide();
               countdown();
             });
         } else {
           Swal.fire({ backdrop: false, title: 'Error', text: response, icon: 'error', showConfirmButton: false,
-            timer: 1500 });
+              timer: 1500 });
         }
       }
     });
@@ -232,7 +223,7 @@ $("#btnlogin").click(function () {
 
           })
 
-        
+
         } else {
           document.getElementById("timer").textContent = "OTP expires " + minutes + "m " + seconds + "s";
         }

@@ -50,7 +50,7 @@
                       $currentuserid = $_SESSION['offid'];
                     }
                     
-                    include 'connection.php';
+                    include '../connection.php';
                     $sql = mysqli_query($con, 
                     "select * from tblevents where status = 3 and userid='$currentuserid' order by id desc");                    
                     

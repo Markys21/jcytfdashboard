@@ -31,7 +31,7 @@
               if (isset($_SESSION['offid'])) {
                 $currentuserid = $_SESSION['offid'];
               }
-              include 'connection.php';
+              include '../connection.php';
               $sql = mysqli_query($con, "select * from tblevents where userid='$currentuserid'");
               echo mysqli_num_rows($sql);
               ?>
@@ -44,9 +44,9 @@
           </div>
         </div>
       </div>
-      <!-- ./col -->
+      
       <div class="col-lg-4 col-6">
-        <!-- small box -->
+        
         <div class="small-box bg-warning">
           <div class="inner">
             <h3>
@@ -54,7 +54,7 @@
               if (isset($_SESSION['offid'])) {
                 $currentuserid = $_SESSION['offid'];
               }
-              include 'connection.php';
+              include '../connection.php';
               // $sql = mysqli_query($con, "select * from tblevents where status = 3");
               $sql = mysqli_query($con, "select * from tblevents where status = 3 and userid='$currentuserid'");
               echo mysqli_num_rows($sql);
@@ -75,10 +75,10 @@
               class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
-      <!-- ./col -->
+       
 
       <div class="col-lg-4 col-6">
-        <!-- small box -->
+        
         <div class="small-box bg-danger">
           <div class="inner">
             <h3>
@@ -87,7 +87,7 @@
                 $currentuserid = $_SESSION['offid'];
               }
 
-              include 'connection.php';
+              include '../connection.php';
               $sql = mysqli_query($con, "select * from tblevents where status = 4 and userid='$currentuserid'");
               echo mysqli_num_rows($sql);
               ?>
@@ -106,10 +106,10 @@
           <a href="?page=off-decline" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
-      <!-- ./col -->
+      
 
       <div class="col-lg-4 col-6">
-        <!-- small box -->
+         
         <div class="small-box bg-success">
           <div class="inner">
             <h3>
@@ -117,7 +117,7 @@
               if (isset($_SESSION['offid'])) {
                 $currentuserid = $_SESSION['offid'];
               }
-              include 'connection.php';
+              include '../connection.php';
               $sql = mysqli_query($con, "select * from tblevents where status = 1 and userid='$currentuserid'");
               // $sql = mysqli_query($con, "select * from tblevents where status = 1 and userid='$currentuserid'");
               echo mysqli_num_rows($sql);
@@ -137,16 +137,16 @@
           <a href="?page=off-events" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
-      <!-- ./col -->
+      
 
 
     </div>
   </div>
 
-  </div>
+  
 
-  </div>
+  
 
   <!-- /.row (main row) -->
-  </div><!-- /.container-fluid -->
+ <!-- /.container-fluid -->
 </section>
